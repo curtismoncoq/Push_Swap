@@ -347,7 +347,7 @@ void	ft_remove_top(t_ring **top)
 	(*top) = (*top)->next;
 }						//? Remove the top node of a ring
 
-void	ft_push(t_ring **a, t_ring **b)
+void	ft_push_a(t_ring **a, t_ring **b)
 {
 	t_ring	*top;
 
@@ -355,7 +355,20 @@ void	ft_push(t_ring **a, t_ring **b)
 	ft_remove_top(a);
 	ft_ring_push_top(b, top->data);
 	free (top);
+	ft_putstr_fd("pa\n", 1);
 }						//? push first A node to B
+
+
+void	ft_push_b(t_ring **a, t_ring **b)
+{
+	t_ring	*top;
+
+	top = *b;
+	ft_remove_top(b);
+	ft_ring_push_top(a, top->data);
+	free (top);
+	ft_putstr_fd("pb\n", 1);
+}						//? push first B node to A
 
 void	ft_one_target_a(t_ring *node, t_ring *b)
 {
@@ -509,7 +522,6 @@ void ft_rotate_cheapest(t_ring **a, t_ring **b)
 		ft_rb(b);
 	while (cheap->route.target > 0)
 		ft_rrb(b);
-	
 }
 
 void	ft_choose_and_push_a(t_ring **a, t_ring **b)
@@ -518,7 +530,8 @@ void	ft_choose_and_push_a(t_ring **a, t_ring **b)
 	ft_both_dist(*a);
 	ft_both_dist(*b);
 	ft_set_all_costs(*a);
-	ft_rotate_cheapest
+	ft_rotate_cheapest(a, b);
+	ft_push_a(a, b);
 }
 
 void	ft_order(t_ring **a, t_ring **b)
