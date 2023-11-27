@@ -159,11 +159,31 @@ void	ft_print_ring(t_ring *top)
 		ft_printf("NULL\n");
 		return ;
 	}
+	ft_putchar_fd('\n', 1);
 	move = top->next;
-	ft_printf(">%d	cost>%d\n", top->data, top->cost);
+	ft_printf(">%dc%d\n", top->data, top->cost);
 	while (move != top)
 	{
-		ft_printf(">%d	cost>%d\n", move->data, move->cost);
+		ft_printf(">%dc%d\n", move->data, move->cost);
+		move = move->next;
+	}
+}			//? PRIIIIIIIIINT
+
+void	ft_print_both(t_ring *a, t_ring *b)
+{
+	t_ring	*move;
+
+	if (!top)
+	{
+		ft_printf("NULL\n");
+		return ;
+	}
+	ft_putchar_fd('\n', 1);
+	move = top->next;
+	ft_printf(">%dc%d\n", top->data, top->cost);
+	while (move != top)
+	{
+		ft_printf(">%dc%d\n", move->data, move->cost);
 		move = move->next;
 	}
 }			//? PRIIIIIIIIINT
@@ -345,29 +365,6 @@ void	ft_remove_top(t_ring **top)
 	(*top) = (*top)->next;
 }						//? Remove the top node of a ring
 
-void	ft_push_a(t_ring **a, t_ring **b)
-{
-	t_ring	*top;
-
-	top = *a;
-	ft_remove_top(a);
-	ft_ring_push_top(b, top->data);
-	free (top);
-	ft_putstr_fd("pa\n", 1);
-}						//? push first A node to B
-
-
-void	ft_push_b(t_ring **a, t_ring **b)
-{
-	t_ring	*top;
-
-	top = *b;
-	ft_remove_top(b);
-	ft_ring_push_top(a, top->data);
-	free (top);
-	ft_putstr_fd("pb\n", 1);
-}						//? push first B node to A
-
 void	ft_one_target_a(t_ring *node, t_ring *b)
 {
 	t_ring	*target;
@@ -452,39 +449,39 @@ void	ft_both_dist(t_ring *top)
 void	ft_ra(t_ring **a)
 {
 	*a = (*a)->next;
-	ft_putstr_fd("ra\n", 1);
+	// ft_putstr_fd("ra\n", 1);
 }
 
 void	ft_rb(t_ring **b)
 {
 	*b = (*b)->next;
-	ft_putstr_fd("rb\n", 1);
+	// ft_putstr_fd("rb\n", 1);
 }
 
 void	ft_rr(t_ring **a, t_ring **b)
 {
 	*a = (*b)->next;
 	*b = (*b)->next;
-	ft_putstr_fd("rr\n", 1);
+	// ft_putstr_fd("rr\n", 1);
 }
 
 void	ft_rra(t_ring **a)
 {
 	*a = (*a)->prev;
-	ft_putstr_fd("rra\n", 1);
+	// ft_putstr_fd("rra\n", 1);
 }
 
 void	ft_rrb(t_ring **b)
 {
 	*b = (*b)->prev;
-	ft_putstr_fd("rrb\n", 1);
+	// ft_putstr_fd("rrb\n", 1);
 }
 
 void	ft_rrr(t_ring **a, t_ring **b)
 {
 	*a = (*b)->prev;
 	*b = (*b)->prev;
-	ft_putstr_fd("rrr\n", 1);
+	// ft_putstr_fd("rrr\n", 1);
 }
 t_ring *ft_find_cheapest(t_ring *a)
 {
@@ -501,6 +498,30 @@ t_ring *ft_find_cheapest(t_ring *a)
 	}
 	return (cheap);
 }
+
+void	ft_push_a(t_ring **a, t_ring **b)
+{
+	t_ring	*top;
+
+	top = *a;
+	ft_remove_top(a);
+	ft_ring_push_top(b, top->data);
+	free (top);
+	// ft_putstr_fd("pa\n", 1);
+}						//? push first A node to B
+
+
+void	ft_push_b(t_ring **a, t_ring **b)
+{
+	t_ring	*top;
+
+	top = *b;
+	ft_remove_top(b);
+	ft_ring_push_top(a, top->data);
+	free (top);
+	// ft_putstr_fd("pb\n", 1);
+}						//? push first B node to A
+
 void ft_double_rotate(t_ring **a, t_ring **b, t_ring *cheap)
 {
 	while (cheap->route.a < 0 && cheap->route.target < 0)
@@ -548,26 +569,6 @@ void ft_rotate_cheapest(t_ring **a, t_ring **b)
 	cheap = ft_find_cheapest(*a);
 	ft_double_rotate(a, b, cheap);
 	ft_single_rotate(a, b, cheap);
-	// while (cheap->route.a < 0 && cheap->route.target < 0)
-	// {
-	// 	ft_rr(a, b);
-	// 	cheap->route.a++;
-	// 	cheap->route.target++;
-	// }
-	// while (cheap->route.a > 0 && cheap->route.target > 0)
-	// {
-	// 	ft_rrr(a, b);
-	// 	cheap->route.a--;
-	// 	cheap->route.target--;
-	// }
-	// while (cheap->route.a < 0)
-	// 	ft_ra(a);
-	// while (cheap->route.a > 0)
-	// 	ft_rra(a);
-	// while (cheap->route.target < 0)
-	// 	ft_rb(b);
-	// while (cheap->route.target > 0)
-	// 	ft_rrb(b);
 }
 
 void	ft_choose_and_push_a(t_ring **a, t_ring **b)
@@ -576,6 +577,7 @@ void	ft_choose_and_push_a(t_ring **a, t_ring **b)
 	ft_both_dist(*a);
 	ft_both_dist(*b);
 	ft_set_all_costs(*a);
+	// ft_print_ring(*a);
 	ft_rotate_cheapest(a, b);
 	ft_push_a(a, b);
 }
@@ -602,6 +604,8 @@ int main(int ac, char **av)
 
 	a = NULL;
 	b = NULL;
+	ac = 2;						//! delete
+	av[1] = "1 2 3 4 5 6 7"	;	//! delete
 	if (ac < 2)
 		return (1);
 	ft_parse_args(ac, av, &a);
@@ -618,7 +622,7 @@ int main(int ac, char **av)
 	// 	ft_order(&a, &b);
 	ft_print_ring(a); 		//! delete
 	ft_putchar_fd('\n', 1);
-	ft_print_ring(b);	//! delete
+	// ft_print_ring(b);	//! delete
 	// ft_printf("len is %d\n", ft_len_ring(a));
 	ft_clear_ring(&a);
 	ft_clear_ring(&b);
