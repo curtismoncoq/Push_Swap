@@ -47,46 +47,57 @@ int ft_min(int x, int y)
 		return (y);
 }
 
-// void	ft_cost_supp(t_updown cost, t_ints up, t_ints down, t_ints *res)
-// {
-// 	res->min = ft_min(ft_min(cost.uu, cost.dd), ft_min(cost.ud, cost.du));
-// 	if (cost.uu == res->min)
-// 	{
-// 		res->a = -up.a;
-// 		res->b = -up.b;
-// 	}
-// 	else if (cost.dd == res->min)
-// 	{
-// 		res->a = down.a;
-// 		res->b = down.b;
-// 	}
-// 	else if (cost.du == res->min)
-// 	{
-// 		res->a = down.a;
-// 		res->b = -up.b;
-// 	}
-// 	else if (cost.ud == res->min)
-// 	{
-// 		res->a = -up.a;
-// 		res->b = down.b;
-// 	}
-// 	return (res);			//! negative value means going up positive means going down
-// }
+void	ft_cost_supp(t_updown cost, t_ring *a, t_ring *target)
+{
+	a->cost = ft_min(ft_min(cost.uu, cost.dd), ft_min(cost.ud, cost.du));
+	if (cost.uu == a->cost)
+	{
+		a->route.a = -a->up;
+		a->route.target = -target->up;
+	}
+	else if (cost.dd == a->cost)
+	{
+		a->route.a = a->down;
+		a->route.target = target->down;
+	}
+	else if (cost.du == a->cost)
+	{
+		a->route.a = a->down;
+		a->route.target = -target->up;
+	}
+	else if (cost.ud == a->cost)
+	{
+		a->route.a = -a->up;
+		a->route.target = target->down;
+	}							//! negative value means going up positive means going down
+}
 
 
-// t_ints	ft_cost(t_ints up, t_ints down)		//? takes the distance top for a and b nodes traveling up or down, returns the opti route
-// {
-// 	t_updown	cost;
-// 	int 		min;
-// 	t_ints		res;
+void	ft_cost(t_ring *a, t_ring *target)
+{
+	t_updown	cost;
+	t_ints		res;
 
-// 	cost.uu = ft_max(up.a, up.b);
-// 	cost.dd = ft_max(down.a, down.b);
-// 	cost.ud = up.a + down.b;
-// 	cost.du = down.a + up.b;
-// 	ft_cost_supp(cost, up, down, &res);
-// 	return (res);
-// }
+	cost.uu = ft_max(a->up, target->up);
+	cost.dd = ft_max(a->down, target->down);
+	cost.ud = a->up + target->down;
+	cost.du = a->down + target->up;
+	ft_cost_supp(cost, a, target);
+	a->route = res;
+}				//? takes the top distance for a and b nodes traveling up or down, returns the opti route
+
+void	ft_set_all_costs(t_ring *a)
+{
+	t_ring	*move;
+
+	move = a->next;
+	ft_cost(a, a->target);
+	while (move != a)
+	{
+		ft_cost(move, move->target);
+		move = move->next;
+	}
+}
 
 
 void ft_ring_push_top(t_ring **top, int data)
@@ -151,10 +162,10 @@ void	ft_print_ring(t_ring *top)
 		return ;
 	}
 	move = top->next;
-	ft_printf(">%d	up>%d	down>%d\n", top->data, top->up, top->down);
+	ft_printf(">%d	cost>%d\n", top->data, top->cost);
 	while (move != top)
 	{
-		ft_printf(">%d	up>%d	down>%d\n", move->data, move->up, move->down);
+		ft_printf(">%d	cost>%d\n", move->data, move->cost);
 		move = move->next;
 	}
 }			//? PRIIIIIIIIINT
@@ -346,7 +357,7 @@ void	ft_push(t_ring **a, t_ring **b)
 	free (top);
 }						//? push first A node to B
 
-void	ft_one_target(t_ring *node, t_ring *b)
+void	ft_one_target_a(t_ring *node, t_ring *b)
 {
 	t_ring	*target;
 	t_ring	*move;
@@ -360,20 +371,49 @@ void	ft_one_target(t_ring *node, t_ring *b)
 		move = move->next;
 	}
 	node->target = target;
-}						//? set the target of "node" by checking all possible targets in b
+}						//? set the target of A "node" by checking all possible targets in B
 
-void	ft_all_target(t_ring *a, t_ring *b)
+void	ft_all_target_a(t_ring *a, t_ring *b)
 {
 	t_ring	*move;
 
 	move = a->next;
-	ft_one_target(a, b);
+	ft_one_target_a(a, b);
 	while (move != a)
 	{
-		ft_one_target(move, b);
+		ft_one_target_a(move, b);
 		move = move->next;
 	}
-}						//? uses the above function to set all targets in ring a
+}						//? uses the above function to set all targets in ring A
+
+void	ft_one_target_b(t_ring *node, t_ring *a)
+{
+	t_ring	*target;
+	t_ring	*move;
+
+	target = a;
+	move = a->next;
+	while (move != a)
+	{
+		if (move->data > node->data && move->data < target->data)
+			target = move;
+		move = move->next;
+	}
+	node->target = target;
+}						//? set the target of B "node" by checking all possible targets in A
+
+void	ft_all_target_b(t_ring *a, t_ring *b)
+{
+	t_ring	*move;
+
+	move = b->next;
+	ft_one_target_b(b, a);
+	while (move != b)
+	{
+		ft_one_target_b(move, a);
+		move = move->next;
+	}
+}						//? uses the above function to set all targets in ring B
 
 void	ft_both_dist(t_ring *top)
 {
@@ -398,10 +438,88 @@ void	ft_both_dist(t_ring *top)
 	}
 }						//? sets each nodes [up/down distances] in a ring
 
-// void	ft_choose_and_push(t_ring **a, t_ring **b)
-// {
+void	ft_ra(t_ring **a)
+{
+	*a = (*a)->next;
+	ft_putstr_fd("ra\n", 1);
+}
 
-// }
+void	ft_rb(t_ring **b)
+{
+	*b = (*b)->next;
+	ft_putstr_fd("rb\n", 1);
+}
+
+void	ft_rr(t_ring **a, t_ring **b)
+{
+	*a = (*b)->next;
+	*b = (*b)->next;
+	ft_putstr_fd("rr\n", 1);
+}
+
+void	ft_rra(t_ring **a)
+{
+	*a = (*a)->prev;
+	ft_putstr_fd("rra\n", 1);
+}
+
+void	ft_rrb(t_ring **b)
+{
+	*b = (*b)->prev;
+	ft_putstr_fd("rrb\n", 1);
+}
+
+void	ft_rrr(t_ring **a, t_ring **b)
+{
+	*a = (*b)->prev;
+	*b = (*b)->prev;
+	ft_putstr_fd("rrr\n", 1);
+}
+t_ring *ft_find_cheapest(t_ring *a)
+{
+	t_ring *cheap;
+	t_ring *move;
+
+	cheap = a;
+	move = a->next;
+	while (move != a)
+	{
+		if (move->cost < cheap->cost)
+			cheap = move;
+		move = move->next;
+	}
+	return (cheap);
+}
+
+
+void ft_rotate_cheapest(t_ring **a, t_ring **b)
+{
+	t_ring *cheap;
+
+	cheap = ft_find_cheapest(*a);
+	while (cheap->route.a < 0 && cheap->route.target < 0)
+		ft_rr(a, b);
+	while (cheap->route.a > 0 && cheap->route.target > 0)
+		ft_rrr(a, b);
+	while (cheap->route.a < 0)
+		ft_ra(a);
+	while (cheap->route.a > 0)
+		ft_rra(a);
+	while (cheap->route.target < 0)
+		ft_rb(b);
+	while (cheap->route.target > 0)
+		ft_rrb(b);
+	
+}
+
+void	ft_choose_and_push_a(t_ring **a, t_ring **b)
+{
+	ft_all_target_a(*a, *b);
+	ft_both_dist(*a);
+	ft_both_dist(*b);
+	ft_set_all_costs(*a);
+	ft_rotate_cheapest
+}
 
 void	ft_order(t_ring **a, t_ring **b)
 {
@@ -409,11 +527,12 @@ void	ft_order(t_ring **a, t_ring **b)
 		ft_push(a, b);
 	if (ft_len_ring(*a) > 3)
 		ft_push(a, b);
-	// while (ft_len_ring(a) > 3)	//TODO put back
-	// 	ft_choose_and_push(a, b);	//TODO put back
-	ft_all_target(*a, *b);	//! to test
-	ft_both_dist(*a);
-	ft_both_dist(*b);
+	while (ft_len_ring(a) > 3)	//TODO put back
+		ft_choose_and_push_a(a, b);	//TODO put back
+	// ft_all_target_a(*a, *b);	//! to test
+	// ft_both_dist(*a);//!
+	// ft_both_dist(*b);//!
+	// ft_set_all_costs(*a);//!
 
 }
 
