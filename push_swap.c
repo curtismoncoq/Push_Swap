@@ -110,7 +110,7 @@ void ft_ring_push_top(t_ring **top, int data)
 		}
 		*top = n;
 	}
-}
+}					//? Push a node at the bottom
 
 void ft_ring_push_back(t_ring **top, int data)
 {
@@ -134,7 +134,7 @@ void ft_ring_push_back(t_ring **top, int data)
 
 		}
 	}
-}
+}					//? Push a node at the bottom
 
 // void	ft_rotate_printer(t_ints res)
 // {
@@ -151,13 +151,13 @@ void	ft_print_ring(t_ring *top)
 		return ;
 	}
 	move = top->next;
-	ft_printf(">%d	t>%d\n", top->data, top->target->data);
+	ft_printf(">%d	up>%d	down>%d\n", top->data, top->up, top->down);
 	while (move != top)
 	{
-		ft_printf(">%d	t>%d\n", move->data, move->target->data);
+		ft_printf(">%d	up>%d	down>%d\n", move->data, move->up, move->down);
 		move = move->next;
 	}
-}
+}			//? PRIIIIIIIIINT
 
 void	ft_clear_ring(t_ring **top)
 {
@@ -175,7 +175,7 @@ void	ft_clear_ring(t_ring **top)
 	}
 	free(*top);
 	*top = NULL;
-}
+}					//? Free all nodes in a ring set top to NULL
 
 long	ft_long_atoi(const char *str)
 {
@@ -201,7 +201,7 @@ long	ft_long_atoi(const char *str)
 		i++;
 	}
 	return (x * sign);
-}
+}				//? Atoi but long
 
 int ft_valid_str(char *str)
 {
@@ -219,7 +219,7 @@ int ft_valid_str(char *str)
 	if (!i)
 		return (0);
 	return (1);
-}
+}					//? Checks for validity of a string according to long_atoi rules
 
 int	ft_valid_stack(int ac, char **stack)
 {
@@ -242,7 +242,7 @@ int	ft_valid_stack(int ac, char **stack)
 		i++;
 	}
 	return (1);
-}
+}				//?Checks for INTMIN/MAX or non-ints in the stack of strings
 
 void	ft_free_split(char **split)
 {
@@ -255,7 +255,7 @@ void	ft_free_split(char **split)
 		i++;
 	}
 	free (split);
-}
+}				//? Free the split used to parse
 
 void	ft_parse_args(int ac, char **av, t_ring **top)
 {
@@ -282,7 +282,7 @@ void	ft_parse_args(int ac, char **av, t_ring **top)
 	}
 	if (ac == 2)
 		ft_free_split(stack);
-}
+}						//? Parse args and converts them to the A ring if it's only valid integers
 
 int	ft_check_double(t_ring	**top)
 {
@@ -310,7 +310,7 @@ int	ft_check_double(t_ring	**top)
 		a = a->next;
 	}
 	return (0);
-}
+}						//? Checks for any duplicate ints
 
 int	ft_len_ring(t_ring *top)
 {
@@ -327,14 +327,14 @@ int	ft_len_ring(t_ring *top)
 		move = move->next;
 	}
 	return (len);
-}
+}						//? Returns the lenght of the ring
 
 void	ft_remove_top(t_ring **top)
 {
 	(*top)->next->prev = (*top)->prev;
 	(*top)->prev->next = (*top)->next;
 	(*top) = (*top)->next;
-}
+}						//? Remove the top node of a ring
 
 void	ft_push(t_ring **a, t_ring **b)
 {
@@ -344,7 +344,7 @@ void	ft_push(t_ring **a, t_ring **b)
 	ft_remove_top(a);
 	ft_ring_push_top(b, top->data);
 	free (top);
-}	//! push first A node to B
+}						//? push first A node to B
 
 void	ft_one_target(t_ring *node, t_ring *b)
 {
@@ -360,7 +360,7 @@ void	ft_one_target(t_ring *node, t_ring *b)
 		move = move->next;
 	}
 	node->target = target;
-}
+}						//? set the target of "node" by checking all possible targets in b
 
 void	ft_all_target(t_ring *a, t_ring *b)
 {
@@ -373,7 +373,30 @@ void	ft_all_target(t_ring *a, t_ring *b)
 		ft_one_target(move, b);
 		move = move->next;
 	}
-}
+}						//? uses the above function to set all targets in ring a
+
+void	ft_both_dist(t_ring *top)
+{
+	t_ring	*move;
+	int		i;
+
+	move = top->next;
+	i = 1;
+	while (move != top)
+	{
+		move->up = i;
+		i++;
+		move = move->next;
+	}
+	move = top->prev;
+	i = 1;
+	while (move != top)
+	{
+		move->down = i;
+		i++;
+		move = move->prev;
+	}
+}						//? sets each nodes [up/down distances] in a ring
 
 // void	ft_choose_and_push(t_ring **a, t_ring **b)
 // {
@@ -382,13 +405,15 @@ void	ft_all_target(t_ring *a, t_ring *b)
 
 void	ft_order(t_ring **a, t_ring **b)
 {
-	// if (ft_len_ring(*a) > 3)
-	// 	ft_push(a, b);
-	// if (ft_len_ring(*a) > 3)
-	// 	ft_push(a, b);
+	if (ft_len_ring(*a) > 3)
+		ft_push(a, b);
+	if (ft_len_ring(*a) > 3)
+		ft_push(a, b);
 	// while (ft_len_ring(a) > 3)	//TODO put back
 	// 	ft_choose_and_push(a, b);	//TODO put back
 	ft_all_target(*a, *b);	//! to test
+	ft_both_dist(*a);
+	ft_both_dist(*b);
 
 }
 
@@ -408,18 +433,14 @@ int main(int ac, char **av)
 		ft_putstr_fd("Error: Duplicate numbers in arguments.", 2);
 	}
 	// ft_printf("len is %d\n", ft_len_ring(a));	//! delete
-	ft_ring_push_top(&b, 9);
-	ft_ring_push_top(&b, 1);
-	ft_ring_push_top(&b, -4);
-	ft_all_target(a, b);
-
+	ft_order(&a, &b);
 	// if (ft_len_ring(a) <= 3)	//?
 	// 	ft_order_small(&a);		//?
 	// if (ft_len_ring(a) > 3)	//? else if
 	// 	ft_order(&a, &b);
 	ft_print_ring(a); 		//! delete
 	ft_putchar_fd('\n', 1);
-	// ft_print_ring(b);	//! delete
+	ft_print_ring(b);	//! delete
 	// ft_printf("len is %d\n", ft_len_ring(a));
 	ft_clear_ring(&a);
 	ft_clear_ring(&b);
