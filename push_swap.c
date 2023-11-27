@@ -147,14 +147,14 @@ void	ft_print_ring(t_ring *top)
 
 	if (!top)
 	{
-		printf("NULL\n");
+		ft_printf("NULL\n");
 		return ;
 	}
 	move = top->next;
-	printf(">%d	next>%d\n", top->data, top->next->data);
+	ft_printf(">%d	t>%d\n", top->data, top->target->data);
 	while (move != top)
 	{
-		printf(">%d	next>%d\n", move->data, move->next->data);
+		ft_printf(">%d	t>%d\n", move->data, move->target->data);
 		move = move->next;
 	}
 }
@@ -312,27 +312,117 @@ int	ft_check_double(t_ring	**top)
 	return (0);
 }
 
-int main(int ac, char **av)
+int	ft_len_ring(t_ring *top)
+{
+	t_ring	*move;
+	int		len;
+
+	if (!top)
+		return (0);
+	move = top->next;
+	len = 1;
+	while (move != top)
+	{
+		len++;
+		move = move->next;
+	}
+	return (len);
+}
+
+void	ft_remove_top(t_ring **top)
+{
+	(*top)->next->prev = (*top)->prev;
+	(*top)->prev->next = (*top)->next;
+	(*top) = (*top)->next;
+}
+
+void	ft_push(t_ring **a, t_ring **b)
 {
 	t_ring	*top;
 
-	top = NULL;
-	if (ac < 2 && av[0] == 0)
-		return (1);
-	ft_parse_args(ac, av, &top);
-	if (ft_check_double(&top))
+	top = *a;
+	ft_remove_top(a);
+	ft_ring_push_top(b, top->data);
+	free (top);
+}	//! push first A node to B
+
+void	ft_one_target(t_ring *node, t_ring *b)
+{
+	t_ring	*target;
+	t_ring	*move;
+
+	target = b;
+	move = b->next;
+	while (move != b)
 	{
-		ft_clear_ring(&top);
+		if (move->data < node->data && move->data > target->data)
+			target = move;
+		move = move->next;
+	}
+	node->target = target;
+}
+
+void	ft_all_target(t_ring *a, t_ring *b)
+{
+	t_ring	*move;
+
+	move = a->next;
+	ft_one_target(a, b);
+	while (move != a)
+	{
+		ft_one_target(move, b);
+		move = move->next;
+	}
+}
+
+// void	ft_choose_and_push(t_ring **a, t_ring **b)
+// {
+
+// }
+
+void	ft_order(t_ring **a, t_ring **b)
+{
+	// if (ft_len_ring(*a) > 3)
+	// 	ft_push(a, b);
+	// if (ft_len_ring(*a) > 3)
+	// 	ft_push(a, b);
+	// while (ft_len_ring(a) > 3)	//TODO put back
+	// 	ft_choose_and_push(a, b);	//TODO put back
+	ft_all_target(*a, *b);	//! to test
+
+}
+
+int main(int ac, char **av)
+{
+	t_ring	*a;
+	t_ring	*b;
+
+	a = NULL;
+	b = NULL;
+	if (ac < 2)
+		return (1);
+	ft_parse_args(ac, av, &a);
+	if (a && ft_check_double(&a))
+	{
+		ft_clear_ring(&a);
 		ft_putstr_fd("Error: Duplicate numbers in arguments.", 2);
 	}
-	// ft_ring_push_back(&top, 1);
-	// ft_ring_push_back(&top, 8);
-	// ft_ring_push_back(&top, 5);
-	// ft_ring_push_back(&top, 3);
-	// ft_ring_push_top(&top, 2);
-	ft_print_ring(top);
-	ft_clear_ring(&top);
-	ft_print_ring(top);
+	// ft_printf("len is %d\n", ft_len_ring(a));	//! delete
+	ft_ring_push_top(&b, 9);
+	ft_ring_push_top(&b, 1);
+	ft_ring_push_top(&b, -4);
+	ft_all_target(a, b);
+
+	// if (ft_len_ring(a) <= 3)	//?
+	// 	ft_order_small(&a);		//?
+	// if (ft_len_ring(a) > 3)	//? else if
+	// 	ft_order(&a, &b);
+	ft_print_ring(a); 		//! delete
+	ft_putchar_fd('\n', 1);
+	// ft_print_ring(b);	//! delete
+	// ft_printf("len is %d\n", ft_len_ring(a));
+	ft_clear_ring(&a);
+	ft_clear_ring(&b);
 	return (0);
 }
 

@@ -36,7 +36,11 @@ fclean: clean
 
 re: fclean all
 
-x: re clean
+x: re
+	rm -f $(OBJS)
+	make clean -C $(LIBFTDIR)
+	rm -f $(LIBFT)
+	rm -f libft.a
 	./$(NAME) 12 4 56 2 0 -3
 
 .PHONY: all clean fclean re
