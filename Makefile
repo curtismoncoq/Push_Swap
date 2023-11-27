@@ -2,6 +2,8 @@ PUSH = push_swap.c
 
 LIBFT = libft/libft.a
 
+LIBS = libft.a
+
 LIBFTDIR = libft
 
 SRCS = ${PUSH}
@@ -10,6 +12,8 @@ OBJS = $(SRCS:.c=.o)
 
 NAME = push_swap
 
+ARGS = 12 4 56 2 0 -3
+
 CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
@@ -17,9 +21,11 @@ CFLAGS = -Wall -Wextra -Werror
 .c.o:
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-$(NAME): $(OBJS)
+$(LIBS): $(LIBFTDIR)
 	make -C $(LIBFTDIR)
 	cp $(LIBFT) .
+
+$(NAME): $(OBJS) $(LIBS)
 	$(CC) -o $(NAME) $(OBJS) -L. -lft
 	
 
@@ -41,6 +47,11 @@ x: re
 	make clean -C $(LIBFTDIR)
 	rm -f $(LIBFT)
 	rm -f libft.a
-	./$(NAME) 12 4 56 2 0 -3
+	./$(NAME) $(ARGS)
+
+c: $(NAME)
+	rm -f $(OBJS)
+	make clean -C $(LIBFTDIR)
+	./$(NAME) $(ARGS)
 
 .PHONY: all clean fclean re
