@@ -76,14 +76,12 @@ void	ft_cost_supp(t_updown cost, t_ring *a, t_ring *target)
 void	ft_cost(t_ring *a, t_ring *target)
 {
 	t_updown	cost;
-	t_ints		res;
 
 	cost.uu = ft_max(a->up, target->up);
 	cost.dd = ft_max(a->down, target->down);
 	cost.ud = a->up + target->down;
 	cost.du = a->down + target->up;
 	ft_cost_supp(cost, a, target);
-	a->route = res;
 }				//? takes the top distance for a and b nodes traveling up or down, returns the opti route
 
 void	ft_set_all_costs(t_ring *a)
@@ -503,25 +501,73 @@ t_ring *ft_find_cheapest(t_ring *a)
 	}
 	return (cheap);
 }
+void ft_double_rotate(t_ring **a, t_ring **b, t_ring *cheap)
+{
+	while (cheap->route.a < 0 && cheap->route.target < 0)
+	{
+		ft_rr(a, b);
+		cheap->route.a++;
+		cheap->route.target++;
+	}
+	while (cheap->route.a > 0 && cheap->route.target > 0)
+	{
+		ft_rrr(a, b);
+		cheap->route.a--;
+		cheap->route.target--;
+	}
+}
 
+void ft_single_rotate(t_ring **a, t_ring **b, t_ring *cheap)
+{
+	while (cheap->route.a < 0)
+	{
+		ft_ra(a);
+		cheap->route.a++;
+	}
+	while (cheap->route.a > 0)
+	{
+		ft_rra(a);
+		cheap->route.a--;
+	}
+	while (cheap->route.target < 0)
+	{
+		ft_rb(b);
+		cheap->route.target++;
+	}
+	while (cheap->route.target > 0)
+	{
+		ft_rrb(b);
+		cheap->route.target--;
+	}
+}
 
 void ft_rotate_cheapest(t_ring **a, t_ring **b)
 {
 	t_ring *cheap;
 
 	cheap = ft_find_cheapest(*a);
-	while (cheap->route.a < 0 && cheap->route.target < 0)
-		ft_rr(a, b);
-	while (cheap->route.a > 0 && cheap->route.target > 0)
-		ft_rrr(a, b);
-	while (cheap->route.a < 0)
-		ft_ra(a);
-	while (cheap->route.a > 0)
-		ft_rra(a);
-	while (cheap->route.target < 0)
-		ft_rb(b);
-	while (cheap->route.target > 0)
-		ft_rrb(b);
+	ft_double_rotate(a, b, cheap);
+	ft_single_rotate(a, b, cheap);
+	// while (cheap->route.a < 0 && cheap->route.target < 0)
+	// {
+	// 	ft_rr(a, b);
+	// 	cheap->route.a++;
+	// 	cheap->route.target++;
+	// }
+	// while (cheap->route.a > 0 && cheap->route.target > 0)
+	// {
+	// 	ft_rrr(a, b);
+	// 	cheap->route.a--;
+	// 	cheap->route.target--;
+	// }
+	// while (cheap->route.a < 0)
+	// 	ft_ra(a);
+	// while (cheap->route.a > 0)
+	// 	ft_rra(a);
+	// while (cheap->route.target < 0)
+	// 	ft_rb(b);
+	// while (cheap->route.target > 0)
+	// 	ft_rrb(b);
 }
 
 void	ft_choose_and_push_a(t_ring **a, t_ring **b)
@@ -537,10 +583,10 @@ void	ft_choose_and_push_a(t_ring **a, t_ring **b)
 void	ft_order(t_ring **a, t_ring **b)
 {
 	if (ft_len_ring(*a) > 3)
-		ft_push(a, b);
+		ft_push_a(a, b);
 	if (ft_len_ring(*a) > 3)
-		ft_push(a, b);
-	while (ft_len_ring(a) > 3)	//TODO put back
+		ft_push_a(a, b);
+	while (ft_len_ring(*a) > 3)	//TODO put back
 		ft_choose_and_push_a(a, b);	//TODO put back
 	// ft_all_target_a(*a, *b);	//! to test
 	// ft_both_dist(*a);//!
