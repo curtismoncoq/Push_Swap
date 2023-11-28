@@ -806,13 +806,13 @@ void	ft_choose_and_push_a(t_ring **a, t_ring **b)
 		return;
 	ft_reset(*a);
 	ft_reset(*b);
+	ft_print_both(*a, *b);	//!
 	ft_all_target_a(*a, *b);
 	ft_both_dist(*a);
 	ft_both_dist(*b);
 	ft_set_all_costs(*a);
 	ft_rotate_cheapest_a(a, b);
 	ft_push_a(a, b);
-	// ft_print_both(*a, *b);	//!
 }
 
 void	ft_choose_and_push_b(t_ring **a, t_ring **b)
@@ -945,7 +945,7 @@ int main(int ac, char **av)
 	a = NULL;
 	b = NULL;
 	ac = 2;						//! delete
-	av[1] = "5 8 4 6 2 3 1 9 7 0"	;	//! delete
+	av[1] = "1 2 4 -2 -9 0 11 7 75 45 3 -100"	;	//! delete
 	if (ac < 2)
 		return (1);
 	ft_parse_args(ac, av, &a);
