@@ -8,7 +8,7 @@ OBJS = $(SRCS:.c=.o)
 
 NAME = push_swap
 
-ARGS = "12 4 56 2 -3 88"
+ARGS = 5 8 4 6 2 3 1 9 7 0
 
 CC = cc
 
