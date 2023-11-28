@@ -365,33 +365,33 @@ void	ft_ra(t_ring **a)
 void	ft_rb(t_ring **b)
 {
 	*b = (*b)->next;
-	// ft_putstr_fd("rb\n", 1);
+	ft_putstr_fd("rb\n", 1);
 }
 
 void	ft_rr(t_ring **a, t_ring **b)
 {
 	*a = (*a)->next;
 	*b = (*b)->next;
-	// ft_putstr_fd("rr\n", 1);
+	ft_putstr_fd("rr\n", 1);
 }
 
 void	ft_rra(t_ring **a)
 {
 	*a = (*a)->prev;
-	// ft_putstr_fd("rra\n", 1);
+	ft_putstr_fd("rra\n", 1);
 }
 
 void	ft_rrb(t_ring **b)
 {
 	*b = (*b)->prev;
-	// ft_putstr_fd("rrb\n", 1);
+	ft_putstr_fd("rrb\n", 1);
 }
 
 void	ft_rrr(t_ring **a, t_ring **b)
 {
-	*a = (*b)->prev;
+	*a = (*a)->prev;
 	*b = (*b)->prev;
-	// ft_putstr_fd("rrr\n", 1);
+	ft_putstr_fd("rrr\n", 1);
 }
 
 int	ft_is_sorted(t_ring *top)
@@ -945,7 +945,8 @@ int main(int ac, char **av)
 	a = NULL;
 	b = NULL;
 	ac = 2;						//! delete
-	av[1] = "1 2 4 -2 -9 0 11 7 75 45 3 -100"	;	//! delete
+	// av[1] = "1 2 4 -2"	;	//! delete
+	av[1] = "1002 495 293857 929 57947 48 41 2 4 -2 -9 0 11 7 75 45 3 -100"	;	//! delete
 	if (ac < 2)
 		return (1);
 	ft_parse_args(ac, av, &a);
