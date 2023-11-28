@@ -1,21 +1,5 @@
-// Double sided list a & b
-
-// handle errors of input
-
-// input can be a string or multiple ints so we use spli on string
-
-// if no errors each number goes into linked list a
-
-// check if sorted
-// 		if !sorted, sort it
-// 			check for 2 number case;		-> swap
-// 			check for 3 number case;		-> sort 3 algo;
-// 			check for >3 number case		-> big man sorting turk algorithm;
-
-//!----------------------------------------------------------//
-
 #include "push_swap.h"
-#include "ft_libft.c"
+// #include "ft_libft.c"
 
 t_ring	*ft_create_element(int data)
 {
@@ -31,6 +15,9 @@ t_ring	*ft_create_element(int data)
 	n->cost = 0;
 	return (n);
 }
+
+//!-----------------------------COSTS------------------------------------------------//
+
 
 int	ft_max(int x, int y)
 {
@@ -98,6 +85,7 @@ void	ft_set_all_costs(t_ring *a)
 		move = move->next;
 	}
 }
+//!-----------------------------------------------------------------------------//
 
 
 void ft_ring_push_top(t_ring **top, int data)
@@ -220,6 +208,7 @@ void	ft_clear_ring(t_ring **top)
 	free(*top);
 	*top = NULL;
 }					//? Free all nodes in a ring set top to NULL
+//TODO----------------------------PARSING-------------------------------------------------//
 
 long	ft_long_atoi(const char *str)
 {
@@ -328,6 +317,8 @@ void	ft_parse_args(int ac, char **av, t_ring **top)
 		ft_free_split(stack);
 }						//? Parse args and converts them to the A ring if it's only valid integers
 
+//TODO-----------------------------------------------------------------------------//
+
 int	ft_check_double(t_ring	**top)
 {
 	t_ring	*a;
@@ -355,6 +346,9 @@ int	ft_check_double(t_ring	**top)
 	}
 	return (0);
 }						//? Checks for any duplicate ints
+
+//?-----------------------------------------------------------------------------//
+
 
 void	ft_ra(t_ring **a)
 {
@@ -393,6 +387,7 @@ void	ft_rrr(t_ring **a, t_ring **b)
 	*b = (*b)->prev;
 	ft_putstr_fd("rrr\n", 1);
 }
+//TODO---------------------------------LAST&SORTED--------------------------------------------//
 
 int	ft_is_sorted(t_ring *top)
 {
@@ -477,6 +472,7 @@ void	ft_final_rotate(t_ring	**top)
 		size--;
 	}
 }
+//TODO-----------------------------------------------------------------------------//
 
 int	ft_len_ring(t_ring *top)
 {
@@ -514,21 +510,9 @@ void	ft_remove_top(t_ring **top)
 	// free (tmp);
 }						//? Remove the top node of a ring
 
-// void	ft_one_target_a(t_ring *node, t_ring *b)
-// {
-// 	t_ring	*target;
-// 	t_ring	*move;
 
-// 	target = b;
-// 	move = b->next;
-// 	while (move != b)
-// 	{
-// 		if (move->data < node->data && move->data > target->data)
-// 			target = move;
-// 		move = move->next;
-// 	}
-// 	node->target = target;
-// }						//? set the target of A "node" by checking all possible targets in B
+//!---------------------------------TARGETS--------------------------------------------//
+
 
 void	ft_one_target_a(t_ring *node, t_ring *b)
 {
@@ -567,22 +551,6 @@ void	ft_all_target_a(t_ring *a, t_ring *b)
 	}
 }						//? uses the above function to set all targets in ring A
 
-// void	ft_one_target_b(t_ring *node, t_ring *a)
-// {
-// 	t_ring	*target;
-// 	t_ring	*move;
-
-// 	target = a;
-// 	move = a->next;
-// 	while (move != a)
-// 	{
-// 		if (move->data > node->data && move->data < target->data)
-// 			target = move;
-// 		move = move->next;
-// 	}
-// 	node->target = target;
-// }
-
 void	ft_one_target_b(t_ring *node, t_ring *a)
 {
 	t_ring	*target;
@@ -619,6 +587,10 @@ void	ft_all_target_b(t_ring *a, t_ring *b)
 		move = move->next;
 	}
 }						//? uses the above function to set all targets in ring B
+
+//!-----------------------------------------------------------------------------//
+
+//*-----------------------------------------------------------------------------//
 
 void	ft_both_dist(t_ring *top)
 {
@@ -660,20 +632,6 @@ t_ring *ft_find_cheapest(t_ring *a)
 	return (cheap);
 }
 
-// void	ft_swap(t_ring **top)
-// {
-// 	int	one;
-// 	int	two;
-
-// 	one = (*top)->data;
-// 	two = (*top)->next->data;
-// 	ft_remove_top(top);
-// 	ft_remove_top(top);
-// 	ft_ring_push_top(top, one);
-// 	ft_ring_push_top(top, two);
-// 	ft_putstr("sa", 1);
-// }
-
 void	ft_push_a(t_ring **a, t_ring **b)
 {
 	t_ring	*top;
@@ -696,6 +654,9 @@ void	ft_push_b(t_ring **a, t_ring **b)
 	free (top);
 	// ft_putstr_fd("pb\n", 1);
 }						//? push first B node to A
+//*-------------------------------------------------------------------------------------//
+
+//TODO-----------------------------------ROTATES------------------------------------------//
 
 void ft_double_rotate(t_ring **a, t_ring **b, t_ring *cheap)
 {
@@ -779,6 +740,8 @@ void ft_rotate_cheapest_b(t_ring **a, t_ring **b)
 	ft_single_rotate_b(a, b, cheap);
 }
 
+//TODO-----------------------------------------------------------------------------//
+
 void	ft_reset(t_ring *top)
 {
 	t_ring	*move;
@@ -830,24 +793,6 @@ void	ft_choose_and_push_b(t_ring **a, t_ring **b)
 	// ft_print_both(*a, *b);	//!
 }
 
-// void	ft_swap(t_ring **top)
-// {
-// 	int	one;
-// 	int	two;
-
-// 	one = (*top)->data;
-// 	two = (*top)->next->data;
-// 	ft_print_ring(*top);	//!
-// 	ft_remove_top(top);
-// 	ft_print_ring(*top);	//!
-// 	ft_remove_top(top);
-// 	ft_print_ring(*top);	//!
-// 	ft_ring_push_top(top, one);
-// 	ft_print_ring(*top);	//!
-// 	ft_ring_push_top(top, two);
-// 	ft_print_ring(*top);	//!
-// 	ft_putstr_fd("sa", 1);
-// }
 
 void	ft_swap(t_ring **top)
 {
@@ -944,9 +889,9 @@ int main(int ac, char **av)
 
 	a = NULL;
 	b = NULL;
-	ac = 2;						//! delete
+	// ac = 2;						//! delete
 	// av[1] = "1 2 4 -2"	;	//! delete
-	av[1] = "1002 495 293857 929 57947 48 41 2 4 -2 -9 0 11 7 75 45 3 -100"	;	//! delete
+	// av[1] = "1002 495 293857 929 57947 48 41 2 4 -2 -9 0 11 7 75 45 3 -100"	;	//! delete
 	if (ac < 2)
 		return (1);
 	ft_parse_args(ac, av, &a);
@@ -955,12 +900,16 @@ int main(int ac, char **av)
 		ft_clear_ring(&a);
 		ft_putstr_fd("Error: Duplicate numbers in arguments.", 2);
 	}
-	// ft_printf("len is %d\n", ft_len_ring(a));	//! delete
 	if (!ft_is_sorted(a))
-		ft_order(&a, &b);
-	// if (ft_len_ring(a) <= 3)	//?
-	// 	ft_order_small(&a);		//?
-	// if (ft_len_ring(a) > 3)	//? else if
+	{
+
+		if (ft_len_ring(a) > 3)	//? else if
+			ft_order(&a, &b);
+		else if (ft_len_ring(a) == 3)	//?
+			ft_order_three(&a);
+		else if (ft_len_ring(a) == 2)
+			ft_swap(&a);
+	}
 	// 	ft_order(&a, &b);
 	// ft_print_both(a, b); 		//! delete
 	// ft_putchar_fd('\n', 1);
