@@ -640,7 +640,7 @@ void	ft_push_a(t_ring **a, t_ring **b)
 	ft_remove_top(a);
 	ft_ring_push_top(b, top->data);
 	free (top);
-	// ft_putstr_fd("pa\n", 1);
+	ft_putstr_fd("pa\n", 1);
 }						//? push first A node to B
 
 
@@ -652,7 +652,7 @@ void	ft_push_b(t_ring **a, t_ring **b)
 	ft_remove_top(b);
 	ft_ring_push_top(a, top->data);
 	free (top);
-	// ft_putstr_fd("pb\n", 1);
+	ft_putstr_fd("pb\n", 1);
 }						//? push first B node to A
 //*-------------------------------------------------------------------------------------//
 
@@ -769,7 +769,6 @@ void	ft_choose_and_push_a(t_ring **a, t_ring **b)
 		return;
 	ft_reset(*a);
 	ft_reset(*b);
-	ft_print_both(*a, *b);	//!
 	ft_all_target_a(*a, *b);
 	ft_both_dist(*a);
 	ft_both_dist(*b);
@@ -790,11 +789,10 @@ void	ft_choose_and_push_b(t_ring **a, t_ring **b)
 	ft_set_all_costs(*b);
 	ft_rotate_cheapest_b(a, b);
 	ft_push_b(a, b);
-	// ft_print_both(*a, *b);	//!
 }
 
 
-void	ft_swap(t_ring **top)
+void	ft_swap_a(t_ring **top)
 {
 	t_ring	*tmp;
 	t_ring	*two;
@@ -812,6 +810,7 @@ void	ft_swap(t_ring **top)
 	three->next = three->prev;
 	three->prev = tmp;
 	*top = two;
+	ft_putstr_fd("sa\n", 1);
 }
 
 void ft_order_three_suport(t_ring **a, int min, int max)
@@ -829,15 +828,15 @@ void ft_order_three_suport(t_ring **a, int min, int max)
 	else if (two == max && three == min)
 		ft_rra(a);
 	else if (two == min && three == max)
-		ft_swap(a);
+		ft_swap_a(a);
 	else if (one == min && two == max)
 	{
-		ft_swap(a);
+		ft_swap_a(a);
 		ft_ra(a);
 	}
 	else if (one == max && three == min)
 	{
-		ft_swap(a);
+		ft_swap_a(a);
 		ft_rra(a);
 	}
 }
@@ -868,16 +867,13 @@ void	ft_order(t_ring **a, t_ring **b)
 		ft_push_a(a, b);
 	if (ft_len_ring(*a) > 3)
 		ft_push_a(a, b);
-	while (ft_len_ring(*a) > 3)	//TODO put back
-		ft_choose_and_push_a(a, b);	//TODO put back
+	while (ft_len_ring(*a) > 3)
+		ft_choose_and_push_a(a, b);
 
 	
 	ft_order_three(a);
-	ft_print_both(*a, *b);	//!
 	while (ft_len_ring(*b) > 0)
 		ft_choose_and_push_b(a, b);
-	ft_print_ring(*a);
-	ft_printf("sizer:%d", ft_size_final_rotate(*a));
 	ft_final_rotate(a);
 
 }
@@ -889,9 +885,6 @@ int main(int ac, char **av)
 
 	a = NULL;
 	b = NULL;
-	// ac = 2;						//! delete
-	// av[1] = "1 2 4 -2"	;	//! delete
-	// av[1] = "1002 495 293857 929 57947 48 41 2 4 -2 -9 0 11 7 75 45 3 -100"	;	//! delete
 	if (ac < 2)
 		return (1);
 	ft_parse_args(ac, av, &a);
@@ -903,18 +896,13 @@ int main(int ac, char **av)
 	if (!ft_is_sorted(a))
 	{
 
-		if (ft_len_ring(a) > 3)	//? else if
+		if (ft_len_ring(a) > 3)
 			ft_order(&a, &b);
-		else if (ft_len_ring(a) == 3)	//?
+		else if (ft_len_ring(a) == 3)
 			ft_order_three(&a);
 		else if (ft_len_ring(a) == 2)
-			ft_swap(&a);
+			ft_swap_a(&a);
 	}
-	// 	ft_order(&a, &b);
-	// ft_print_both(a, b); 		//! delete
-	// ft_putchar_fd('\n', 1);
-	ft_print_ring(a);	//! delete
-	// ft_printf("len is %d\n", ft_len_ring(a));
 	ft_clear_ring(&a);
 	ft_clear_ring(&b);
 	return (0);
