@@ -17,14 +17,13 @@ CFLAGS = -Wall -Wextra -Werror
 .c.o:
 	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
+all: $(NAME)
+
 $(LIBFT):
 	make -C $(LIBFTDIR)
 
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) -o $(NAME) $(OBJS) -L$(LIBFTDIR) -lft
-	
-
-all: $(NAME)
 
 clean:
 	rm -f $(OBJS)
