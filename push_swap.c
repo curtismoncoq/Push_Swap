@@ -632,7 +632,7 @@ t_ring *ft_find_cheapest(t_ring *a)
 	return (cheap);
 }
 
-void	ft_push_a(t_ring **a, t_ring **b)
+void	ft_push_b(t_ring **a, t_ring **b)
 {
 	t_ring	*top;
 
@@ -640,11 +640,11 @@ void	ft_push_a(t_ring **a, t_ring **b)
 	ft_remove_top(a);
 	ft_ring_push_top(b, top->data);
 	free (top);
-	ft_putstr_fd("pa\n", 1);
+	ft_putstr_fd("pb\n", 1);
 }						//? push first A node to B
 
 
-void	ft_push_b(t_ring **a, t_ring **b)
+void	ft_push_a(t_ring **a, t_ring **b)
 {
 	t_ring	*top;
 
@@ -652,7 +652,7 @@ void	ft_push_b(t_ring **a, t_ring **b)
 	ft_remove_top(b);
 	ft_ring_push_top(a, top->data);
 	free (top);
-	ft_putstr_fd("pb\n", 1);
+	ft_putstr_fd("pa\n", 1);
 }						//? push first B node to A
 //*-------------------------------------------------------------------------------------//
 
@@ -774,7 +774,7 @@ void	ft_choose_and_push_a(t_ring **a, t_ring **b)
 	ft_both_dist(*b);
 	ft_set_all_costs(*a);
 	ft_rotate_cheapest_a(a, b);
-	ft_push_a(a, b);
+	ft_push_b(a, b);
 }
 
 void	ft_choose_and_push_b(t_ring **a, t_ring **b)
@@ -788,7 +788,7 @@ void	ft_choose_and_push_b(t_ring **a, t_ring **b)
 	ft_both_dist(*b);
 	ft_set_all_costs(*b);
 	ft_rotate_cheapest_b(a, b);
-	ft_push_b(a, b);
+	ft_push_a(a, b);
 }
 
 
@@ -864,9 +864,9 @@ void	ft_order_three(t_ring **a)
 void	ft_order(t_ring **a, t_ring **b)
 {
 	if (ft_len_ring(*a) > 3)
-		ft_push_a(a, b);
+		ft_push_b(a, b);
 	if (ft_len_ring(*a) > 3)
-		ft_push_a(a, b);
+		ft_push_b(a, b);
 	while (ft_len_ring(*a) > 3)
 		ft_choose_and_push_a(a, b);
 
@@ -891,7 +891,7 @@ int main(int ac, char **av)
 	if (a && ft_check_double(&a))
 	{
 		ft_clear_ring(&a);
-		ft_putstr_fd("Error: Duplicate numbers in arguments.", 2);
+		ft_putstr_fd("Error: Duplicate numbers in arguments.\n", 2);
 	}
 	if (!ft_is_sorted(a))
 	{
