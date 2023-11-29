@@ -6,11 +6,14 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:07:25 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 13:12:13 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:06:40 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_check_double(t_ring	**top)
+#include "push_swap.h"
+
+//? Checks for any duplicate ints
+int	ft_check_double(t_ring **top)
 {
 	t_ring	*a;
 	t_ring	*b;
@@ -36,8 +39,9 @@ int	ft_check_double(t_ring	**top)
 		a = a->next;
 	}
 	return (0);
-}						//? Checks for any duplicate ints
+}
 
+//? Returns 1 if sorted 0 if not
 int	ft_is_sorted(t_ring *top)
 {
 	t_ring	*move;
@@ -56,8 +60,9 @@ int	ft_is_sorted(t_ring *top)
 		move = move->next;
 	}
 	return (sort);
-}					//? Returns 1 if sorted 0 if not
+}
 
+//? Returns the lenght of the ring
 int	ft_len_ring(t_ring *top)
 {
 	t_ring	*move;
@@ -73,4 +78,4 @@ int	ft_len_ring(t_ring *top)
 		move = move->next;
 	}
 	return (len);
-}						//? Returns the lenght of the ring
+}

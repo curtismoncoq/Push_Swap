@@ -6,9 +6,11 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:05:11 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 13:12:46 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:06:41 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 void	ft_rb(t_ring **b)
 {
@@ -29,24 +31,20 @@ void	ft_rrr(t_ring **a, t_ring **b)
 	ft_putstr_fd("rrr\n", 1);
 }
 
+//? Remove the top node of a ring
 void	ft_remove_top(t_ring **top)
 {
-	// t_ring	*tmp;
-
 	if (!(*top))
 		return ;
 	if ((*top) == (*top)->next)
 	{
-		// free (*top);
 		(*top) = NULL;
 		return ;
 	}
 	(*top)->next->prev = (*top)->prev;
 	(*top)->prev->next = (*top)->next;
-	// tmp = (*top);
 	(*top) = (*top)->next;
-	// free (tmp);
-}						//? Remove the top node of a ring
+}
 
 void	ft_push_b(t_ring **a, t_ring **b)
 {
@@ -55,6 +53,6 @@ void	ft_push_b(t_ring **a, t_ring **b)
 	top = *a;
 	ft_remove_top(a);
 	ft_ring_push_top(b, top->data);
-	free (top);
+	free(top);
 	ft_putstr_fd("pb\n", 1);
-}						//? push first A node to B
+}

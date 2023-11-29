@@ -6,9 +6,11 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:03:30 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 13:04:15 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:06:36 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 long	ft_long_atoi(const char *str)
 {
@@ -34,11 +36,12 @@ long	ft_long_atoi(const char *str)
 		i++;
 	}
 	return (x * sign);
-}				//? Atoi but long
+}
 
-int ft_valid_str(char *str)
+//? Checks for validity of a string according to long_atoi rules
+int	ft_valid_str(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (str[i] == '-' || str[i] == '+')
@@ -52,8 +55,9 @@ int ft_valid_str(char *str)
 	if (!i)
 		return (0);
 	return (1);
-}					//? Checks for validity of a string according to long_atoi rules
+}
 
+//?Checks for INTMIN/MAX or non-ints in the stack of strings
 int	ft_valid_stack(int ac, char **stack)
 {
 	int		i;
@@ -75,8 +79,9 @@ int	ft_valid_stack(int ac, char **stack)
 		i++;
 	}
 	return (1);
-}				//?Checks for INTMIN/MAX or non-ints in the stack of strings
+}
 
+//? Free the split used to parse
 void	ft_free_split(char **split)
 {
 	int	i;
@@ -87,18 +92,19 @@ void	ft_free_split(char **split)
 		free(split[i]);
 		i++;
 	}
-	free (split);
-}				//? Free the split used to parse
+	free(split);
+}
 
+//? Parse args and converts them to the A ring if it's only valid integers
 void	ft_parse_args(int ac, char **av, t_ring **top)
 {
-	int	i;
+	int		i;
+	char	**stack;
 
 	i = 0;
-	char **stack;
 	stack = NULL;
 	if (ac == 2)
-		stack = ft_split(av[1], ' ');	//!need to free later
+		stack = ft_split(av[1], ' ');
 	else if (ac > 2)
 		stack = av + 1;
 	if (!ft_valid_stack(ac, stack))
@@ -115,4 +121,4 @@ void	ft_parse_args(int ac, char **av, t_ring **top)
 	}
 	if (ac == 2)
 		ft_free_split(stack);
-}						//? Parse args and converts them to the A ring if it's only valid integers
+}

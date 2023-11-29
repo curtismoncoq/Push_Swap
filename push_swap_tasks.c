@@ -6,10 +6,13 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:40:15 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 14:42:38 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:06:29 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
+
+//? sets each nodes [up/down distances] in a ring
 void	ft_both_dist(t_ring *top)
 {
 	t_ring	*move;
@@ -31,13 +34,12 @@ void	ft_both_dist(t_ring *top)
 		i++;
 		move = move->prev;
 	}
-}						//? sets each nodes [up/down distances] in a ring
+}
 
-
-t_ring *ft_find_cheapest(t_ring *a)
+t_ring	*ft_find_cheapest(t_ring *a)
 {
-	t_ring *cheap;
-	t_ring *move;
+	t_ring	*cheap;
+	t_ring	*move;
 
 	cheap = a;
 	move = a->next;
@@ -71,7 +73,7 @@ void	ft_reset(t_ring *top)
 	}
 }
 
-void ft_order_three_suport(t_ring **a, int min, int max)
+void	ft_order_three_suport(t_ring **a, int min, int max)
 {
 	int	one;
 	int	two;
@@ -80,7 +82,6 @@ void ft_order_three_suport(t_ring **a, int min, int max)
 	one = (*a)->data;
 	two = (*a)->next->data;
 	three = (*a)->next->next->data;
-
 	if (one == max && two == min)
 		ft_ra(a);
 	else if (two == max && three == min)
@@ -101,9 +102,9 @@ void ft_order_three_suport(t_ring **a, int min, int max)
 
 void	ft_order_three(t_ring **a)
 {
-	int	max;
-	int min;
-	t_ring *move;
+	int		max;
+	int		min;
+	t_ring	*move;
 
 	max = (*a)->data;
 	min = (*a)->data;

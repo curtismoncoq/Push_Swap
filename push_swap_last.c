@@ -6,9 +6,11 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:08:26 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 13:12:04 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:06:38 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 t_ring	*ft_find_smallest(t_ring *top)
 {
@@ -28,10 +30,10 @@ t_ring	*ft_find_smallest(t_ring *top)
 	return (min);
 }
 
-int	ft_size_final_rotate(t_ring	*top)
+int	ft_size_final_rotate(t_ring *top)
 {
-	int	up;
-	int	down;
+	int		up;
+	int		down;
 	t_ring	*move;
 	t_ring	*smallest;
 
@@ -53,13 +55,13 @@ int	ft_size_final_rotate(t_ring	*top)
 		move = move->prev;
 	}
 	if (down < up)
-		return(down);
+		return (down);
 	return (-up);
 }
 
-void	ft_final_rotate(t_ring	**top)
+void	ft_final_rotate(t_ring **top)
 {
-	int size;
+	int	size;
 
 	size = ft_size_final_rotate(*top);
 	while (size < 0)

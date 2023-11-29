@@ -1,4 +1,4 @@
-SRCS = push_swap.c
+SRCS = push_swap.c push_swap_a_ope.c push_swap_b_ope.c push_swap_check.c push_swap_costs.c push_swap_last.c push_swap_parsing.c push_swap_ring.c push_swap_rotates.c push_swap_targets.c push_swap_tasks.c
 
 LIBFT = libft/libft.a
 
@@ -46,4 +46,9 @@ c: $(NAME)
 	make clean -C $(LIBFTDIR)
 	./$(NAME) $(ARGS)
 
-.PHONY: all clean fclean re
+check: $(NAME)
+	rm -f $(OBJS)
+	make clean -C $(LIBFTDIR)
+	./$(NAME) $(ARGS) | ./checker_linux $(ARGS)
+
+.PHONY: all clean fclean re x c check

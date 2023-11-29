@@ -6,9 +6,11 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:05:11 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 14:39:12 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/29 18:06:43 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "push_swap.h"
 
 void	ft_ra(t_ring **a)
 {
@@ -36,9 +38,9 @@ void	ft_push_a(t_ring **a, t_ring **b)
 	top = *b;
 	ft_remove_top(b);
 	ft_ring_push_top(a, top->data);
-	free (top);
+	free(top);
 	ft_putstr_fd("pa\n", 1);
-}						//? push first B node to A
+}
 
 void	ft_swap_a(t_ring **top)
 {
