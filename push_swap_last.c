@@ -6,13 +6,13 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:08:26 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 18:06:38 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:50:43 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_ring	*ft_find_smallest(t_ring *top)
+static t_ring	*ft_find_smallest(t_ring *top)
 {
 	t_ring	*move;
 	t_ring	*min;
@@ -30,7 +30,7 @@ t_ring	*ft_find_smallest(t_ring *top)
 	return (min);
 }
 
-int	ft_size_final_rotate(t_ring *top)
+static int	ft_size_final_rotate(t_ring *top)
 {
 	int		up;
 	int		down;

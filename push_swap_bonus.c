@@ -6,42 +6,16 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:37:16 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 18:07:24 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:37:36 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_bonus.h"
 
-
 #include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-void	ft_print_list(t_list *list)	//! delete
-{
-	while(list)
-	{
-		ft_putstr_fd(list->content, 1);
-		list = list->next;
-	}
-}
-
-
-void	ft_print_int_list(t_ring *list)	//! delete
-{
-	t_ring *move;
-
-	if (!list)
-		return ;
-	ft_putnbr_fd(list->data, 1);
-	move = list->next;
-	while(move != list)
-	{
-		ft_putnbr_fd(move->data, 1);
-		move = move->next;
-	}
-}
 
 t_list	*ft_get_operations(void)
 {
@@ -90,67 +64,6 @@ void	ft_apply(t_ring **a, t_ring **b, int ope)
 		ft_rrx(b);
 	if (ope == 11)
 		ft_rrr(a, b);
-}
-
-
-int ft_is_s(char *ope)
-{
-	if (ope[1] == 'a' && (!ope[2] || ope[2] == '\n'))
-		return (1);
-	if (ope[1] == 'b'&& (!ope[2] || ope[2] == '\n'))
-		return (2);
-	if (ope[1] == 's'&& (!ope[2] || ope[2] == '\n'))
-		return (3);
-	return (0);
-}
-
-int ft_is_p(char *ope)
-{
-	if (ope[1] == 'a' && (!ope[2] || ope[2] == '\n'))
-		return (4);
-	if (ope[1] == 'b' && (!ope[2] || ope[2] == '\n'))
-		return (5);
-	return (0);
-}
-
-int ft_is_rr(char *ope)
-{
-	if (ope[2] == 'a' && (!ope[3] || ope[3] == '\n'))
-		return (9);
-	if (ope[2] == 'b'&& (!ope[3] || ope[3] == '\n'))
-		return (10);
-	if (ope[2] == 'r'&& (!ope[3] || ope[3] == '\n'))
-		return (11);
-	return (0);
-}
-
-int ft_is_r(char *ope)
-{
-	if (ope[1] == 'a' && (!ope[2] || ope[2] == '\n'))
-		return (6);
-	if (ope[1] == 'b'&& (!ope[2] || ope[2] == '\n'))
-		return (7);
-	if (ope[1] == 'r')
-	{
-		if(!ope[2] || ope[2] == '\n')
-			return (8);
-		else
-			return(ft_is_rr(ope));
-	}
-	return (0);
-}
-
-int	ft_is_operation(char *ope)
-{
-	if (!ope)
-		return (12);
-	if (ope[0] == 's')
-		return (ft_is_s(ope));
-	if (ope[0] == 'p')
-		return (ft_is_p(ope));
-	if (ope[0] == 'r')
-		return (ft_is_r(ope));
-	return (0);
 }
 
 int	ft_follow_operations(t_ring **a, t_ring **b)

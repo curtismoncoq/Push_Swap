@@ -6,7 +6,7 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:01:57 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 18:06:35 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:18:28 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ t_ring	*ft_create_element(int data)
 	return (n);
 }
 
-//? Push a node to the top
+/*
+**Push a node to the top
+*/
 void	ft_ring_push_top(t_ring **top, int data)
 {
 	t_ring	*n;
@@ -51,7 +53,9 @@ void	ft_ring_push_top(t_ring **top, int data)
 	}
 }
 
-//? Push a node to the bottom
+/*
+**Push a node to the bottom
+*/
 void	ft_ring_push_back(t_ring **top, int data)
 {
 	t_ring	*n;
@@ -75,7 +79,9 @@ void	ft_ring_push_back(t_ring **top, int data)
 	}
 }
 
-//? Free all nodes in a ring set top to NULL
+/*
+**Free all nodes in a ring set top to NULL
+*/
 void	ft_clear_ring(t_ring **top)
 {
 	t_ring	*move;

@@ -6,13 +6,15 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:07:25 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 18:06:40 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:44:15 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//? Checks for any duplicate ints
+/*
+**Checks for any duplicate ints
+*/
 int	ft_check_double(t_ring **top)
 {
 	t_ring	*a;
@@ -41,7 +43,9 @@ int	ft_check_double(t_ring **top)
 	return (0);
 }
 
-//? Returns 1 if sorted 0 if not
+/*
+**Returns 1 if sorted 0 if not
+*/
 int	ft_is_sorted(t_ring *top)
 {
 	t_ring	*move;
@@ -62,7 +66,9 @@ int	ft_is_sorted(t_ring *top)
 	return (sort);
 }
 
-//? Returns the lenght of the ring
+/*
+**Returns the lenght of the ring
+*/
 int	ft_len_ring(t_ring *top)
 {
 	t_ring	*move;

@@ -6,13 +6,13 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:03:30 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 18:06:36 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:14:06 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-long	ft_long_atoi(const char *str)
+static long	ft_long_atoi(const char *str)
 {
 	int		i;
 	int		sign;
@@ -38,8 +38,10 @@ long	ft_long_atoi(const char *str)
 	return (x * sign);
 }
 
-//? Checks for validity of a string according to long_atoi rules
-int	ft_valid_str(char *str)
+/*
+**Checks for validity of a string according to long_atoi rules
+*/
+static int	ft_valid_str(char *str)
 {
 	int	i;
 
@@ -57,8 +59,10 @@ int	ft_valid_str(char *str)
 	return (1);
 }
 
-//?Checks for INTMIN/MAX or non-ints in the stack of strings
-int	ft_valid_stack(int ac, char **stack)
+/*
+**Checks for INTMIN/MAX or non-ints in the stack of strings
+*/
+static int	ft_valid_stack(int ac, char **stack)
 {
 	int		i;
 	long	a;
@@ -81,8 +85,10 @@ int	ft_valid_stack(int ac, char **stack)
 	return (1);
 }
 
-//? Free the split used to parse
-void	ft_free_split(char **split)
+/*
+**Free the split used to parse
+*/
+static void	ft_free_split(char **split)
 {
 	int	i;
 
@@ -95,7 +101,9 @@ void	ft_free_split(char **split)
 	free(split);
 }
 
-//? Parse args and converts them to the A ring if it's only valid integers
+/*
+**Parse args and converts them to the A ring if it's only valid integers
+*/
 void	ft_parse_args(int ac, char **av, t_ring **top)
 {
 	int		i;

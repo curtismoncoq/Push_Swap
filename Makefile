@@ -66,4 +66,4 @@ x: all
 	make clean -C $(LIBFTDIR)
 	./$(NAME) $(ARGS) | ./$(CHECK) $(ARGS)
 
-.PHONY: all bonus clean fclean re x c check
+.PHONY: all mandatory bonus clean fclean re m b x

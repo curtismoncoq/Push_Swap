@@ -6,13 +6,13 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 12:59:43 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 18:21:02 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:47:02 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_max(int x, int y)
+static int	ft_max(int x, int y)
 {
 	if (x > y)
 		return (x);
@@ -20,7 +20,7 @@ int	ft_max(int x, int y)
 		return (y);
 }
 
-int	ft_min(int x, int y)
+static int	ft_min(int x, int y)
 {
 	if (x < y)
 		return (x);
@@ -28,8 +28,10 @@ int	ft_min(int x, int y)
 		return (y);
 }
 
-//? negative value means going up positive means going down
-void	ft_cost_supp(t_updown cost, t_ring *a, t_ring *target)
+/*
+**negative value means going up positive means going down
+*/
+static void	ft_cost_supp(t_updown cost, t_ring *a, t_ring *target)
 {
 	a->cost = ft_min(ft_min(cost.uu, cost.dd), ft_min(cost.ud, cost.du));
 	if (cost.uu == a->cost)
@@ -54,8 +56,10 @@ void	ft_cost_supp(t_updown cost, t_ring *a, t_ring *target)
 	}
 }
 
-//? takes distance for a and b nodes returns the opti route
-void	ft_cost(t_ring *a, t_ring *target)
+/*
+**takes distance for a and b nodes returns the opti route
+*/
+static void	ft_cost(t_ring *a, t_ring *target)
 {
 	t_updown	cost;
 

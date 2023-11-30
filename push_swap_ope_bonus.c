@@ -6,7 +6,7 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:05:11 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 18:04:47 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:51:00 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,28 +46,6 @@ void	ft_push(t_ring **a, t_ring **b)
 		free(top);
 	}
 }
-
-// void	ft_swap(t_ring **top)
-// {
-// 	t_ring	*tmp;
-// 	t_ring	*two;
-// 	t_ring	*three;
-
-// 	if (!(*top))
-// 		return ;
-// 	two = (*top)->next;
-// 	three = (*top)->next->next;
-// 	tmp = (*top)->next;
-// 	(*top)->next = (*top)->prev;
-// 	(*top)->prev = tmp;
-// 	tmp = two->next;
-// 	two->next = two->prev;
-// 	two->prev = tmp;
-// 	tmp = three->next;
-// 	three->next = three->prev;
-// 	three->prev = tmp;
-// 	*top = two;
-// }
 
 void ft_swap(t_ring **top)
 {
