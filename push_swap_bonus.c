@@ -6,7 +6,7 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:37:16 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 19:47:41 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 22:55:06 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static t_list	*ft_get_operations(void)
 			nl = 0;
 		ft_lstadd_back(&list, ft_lstnew(line));
 	}
-
 	return (list);
 }
 
@@ -84,7 +83,7 @@ static int	ft_follow_operations(t_ring **a, t_ring **b)
 		move = move->next;
 	}
 	move = ope_list;
-	while(move)
+	while (move)
 	{
 		ft_apply(a, b, ft_is_operation(move->content));
 		move = move->next;

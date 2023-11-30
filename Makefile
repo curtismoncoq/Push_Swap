@@ -14,7 +14,7 @@ NAME = push_swap
 
 CHECK = checker
 
-ARGS = 1002 495 293857 929 57947 48 41 2 4 -2 -999 0 11 7 22275 45 3 -100
+ARGS = 3 1 2 4 5
 
 CC = cc
 
@@ -60,10 +60,7 @@ b: $(CHECK)
 	make clean -C $(LIBFTDIR)
 	./$(CHECK) $(ARGS)
 
-x: all
-	rm -f $(OBJS)
-	rm -f $(OBONUS)
-	make clean -C $(LIBFTDIR)
+x:
 	./$(NAME) $(ARGS) | ./$(CHECK) $(ARGS)
 
 .PHONY: all mandatory bonus clean fclean re m b x

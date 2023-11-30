@@ -6,7 +6,7 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:03:30 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 19:52:39 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 22:55:40 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static long	ft_long_atoi(const char *str)
 	}
 	return (x * sign);
 }
+
 /*
 **Checks for validity of a string according to long_atoi rules
 */
