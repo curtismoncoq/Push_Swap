@@ -6,13 +6,15 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:14:01 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/26 22:44:23 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 00:11:07 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
-
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1024
+# endif
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -25,6 +27,39 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
+typedef struct s_stash
+{
+	int				fd;
+	int				end;
+	char			*text;
+	struct s_stash	*next;
+}	t_stash;
+
+typedef struct s_fill
+{
+	int		i;
+	int		j;
+	int		found;
+	t_stash	*last;
+}	t_fill;
+
+typedef struct s_fdo
+{
+	int	bytes;
+	int	fd;
+	int	o;
+}	t_fdo;
+
+t_stash	*ft_stash_to_line(int fd, char *line, t_stash *stash, int len);
+t_stash	*ft_fill_line(int fd, char **line, t_stash *stash);
+t_stash	*ft_create(int fd, char *buffer, int end);
+void	ft_fill_stash(t_fdo g, char *buffer, char **line, t_stash **stash);
+void	ft_add_back(t_stash **stash, t_stash *n);
+void	ft_clear_stash(int fd, t_stash **stash);
+void	ft_free_text(t_stash *tmp);
+char	*get_next_line(int fd);
+int		ft_line_len(int fd, t_stash *stash, int result, int found);
+int		ft_check_newline(int fd, t_stash *stash);
 int		ft_atoi(const char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t nmemb, size_t size);
