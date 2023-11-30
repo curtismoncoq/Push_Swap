@@ -30,7 +30,7 @@ mandatory: $(NAME)
 bonus: $(CHECK)
 
 $(LIBFT):
-	make -C $(LIBFTDIR)
+	make bonus -C $(LIBFTDIR)
 
 $(NAME): $(OBJS) $(LIBFT)
 	$(CC) -o $(NAME) $(OBJS) -L$(LIBFTDIR) -lft
@@ -40,28 +40,30 @@ $(CHECK): $(OBONUS) $(LIBFT)
 
 clean:
 	rm -f $(OBJS)
+	rm -f $(OBONUS)
 	make clean -C $(LIBFTDIR)
 
 fclean: clean
 	rm -f $(NAME)
 	rm -f $(LIBFT)
+	rm -f $(CHECK)
 
 re: fclean all
 
-x: re
-	rm -f $(OBJS)
-	make clean -C $(LIBFTDIR)
-	rm -f $(LIBFT)
-	./$(NAME) $(ARGS)
-
-c: $(NAME)
+m: $(NAME)
 	rm -f $(OBJS)
 	make clean -C $(LIBFTDIR)
 	./$(NAME) $(ARGS)
 
-check: $(NAME)
-	rm -f $(OBJS)
+b: $(CHECK)
+	rm -f $(OBONUS)
 	make clean -C $(LIBFTDIR)
-	./$(NAME) $(ARGS) | ./checker $(ARGS)
+	./$(CHECK) $(ARGS)
+
+x: all
+	rm -f $(OBJS)
+	rm -f $(OBONUS)
+	make clean -C $(LIBFTDIR)
+	./$(NAME) $(ARGS) | ./$(CHECK) $(ARGS)
 
 .PHONY: all bonus clean fclean re x c check

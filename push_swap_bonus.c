@@ -6,7 +6,7 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:37:16 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 16:56:30 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:07:24 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,71 +18,6 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-// static char	*ft_strcat(char *dest, char *src)
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	j = 0;
-// 	while (dest[i])
-// 		i++;
-// 	while (src[j])
-// 		dest[i++] = src[j++];
-// 	dest[i] = '\0';
-// 	return (dest);
-// }
-
-// static char	*ft_newstrjoin(char const *s1, char const *s2, size_t len)
-// {
-// 	char	*cat;
-
-// 	if (!s1 && s2)
-// 	{
-// 		cat = ft_strdup((char *)s2);
-// 		free((void *)s2);
-// 		return (cat);
-// 	}
-// 	if (s1 && !s2)
-// 	{
-// 		cat = ft_strdup((char *)s1);
-// 		free((void *)s1);
-// 		return (cat);
-// 	}
-// 	if (!s1 && !s2)
-// 		return (NULL);
-// 	cat = (char *)ft_calloc(sizeof(*cat), (len + 1));
-// 	if (!cat)
-// 		return (NULL);
-// 	cat[0] = 0;
-// 	ft_strcat(cat, (char *)s1);
-// 	ft_strcat(cat, (char *)s2);
-// 	free((void *)s1);
-// 	free((void *)s2);
-// 	return (cat);
-// }
-// char	*ft_get_operations(void)
-// {
-// 	char	*str;
-// 	char	*line;
-// 	int		nl;
-// 	size_t	len;
-
-// 	nl = 1;
-// 	str = NULL;
-// 	line = NULL;
-// 	len = 0;
-// 	while (nl)
-// 	{
-// 		line = get_next_line(0);
-// 		if (!line || line[ft_strlen(line) - 1] != '\n')
-// 			nl = 0;
-// 		if (str && line)
-// 			len = ft_strlen(str) + ft_strlen(line);
-// 		str = ft_newstrjoin(str, line, len);
-// 	}
-// 	return (str);
-// }
 void	ft_print_list(t_list *list)	//! delete
 {
 	while(list)
@@ -218,7 +153,6 @@ int	ft_is_operation(char *ope)
 	return (0);
 }
 
-// int	ft_follow_operations()
 int	ft_follow_operations(t_ring **a, t_ring **b)
 {
 	t_list	*ope_list;
@@ -228,7 +162,6 @@ int	ft_follow_operations(t_ring **a, t_ring **b)
 	move = ope_list;
 	while (move)
 	{
-		// ft_print_list(move);
 		if (!ft_is_operation(move->content))
 		{
 			ft_putstr_fd("Error\n", 2);
@@ -243,7 +176,6 @@ int	ft_follow_operations(t_ring **a, t_ring **b)
 		ft_apply(a, b, ft_is_operation(move->content));
 		move = move->next;
 	}
-	// ft_print_int_list(*a);	//!
 	return (1);
 }
 
@@ -265,7 +197,7 @@ int	main(int ac, char **av)
 	else if (a)
 	{
 		ft_follow_operations(&a, &b);
-		ft_print_int_list(a);
+		// ft_print_int_list(a);
 		if (ft_is_sorted(a))
 			ft_putstr_fd("OK\n", 1);
 		else

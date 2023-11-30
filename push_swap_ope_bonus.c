@@ -6,7 +6,7 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:05:11 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 17:21:49 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 18:04:47 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_rx(t_ring **top)
 	if (!(*top))
 		return ;
 	*top = (*top)->next;
-	ft_putstr_fd("ra\n", 1);
 }
 
 void	ft_rrx(t_ring **top)
@@ -25,7 +24,6 @@ void	ft_rrx(t_ring **top)
 	if (!(*top))
 		return ;
 	*top = (*top)->prev;
-	ft_putstr_fd("rra\n", 1);
 }
 
 void	ft_rr(t_ring **a, t_ring **b)
