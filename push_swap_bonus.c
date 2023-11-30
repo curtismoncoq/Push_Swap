@@ -6,7 +6,7 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:37:16 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 18:37:36 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:47:41 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-t_list	*ft_get_operations(void)
+static t_list	*ft_get_operations(void)
 {
 	t_list	*list;
 	char	*line;
@@ -37,7 +37,7 @@ t_list	*ft_get_operations(void)
 	return (list);
 }
 
-void	ft_apply(t_ring **a, t_ring **b, int ope)
+static void	ft_apply(t_ring **a, t_ring **b, int ope)
 {
 	if (ope == 1)
 		ft_swap(a);
@@ -66,7 +66,7 @@ void	ft_apply(t_ring **a, t_ring **b, int ope)
 		ft_rrr(a, b);
 }
 
-int	ft_follow_operations(t_ring **a, t_ring **b)
+static int	ft_follow_operations(t_ring **a, t_ring **b)
 {
 	t_list	*ope_list;
 	t_list	*move;
@@ -110,7 +110,6 @@ int	main(int ac, char **av)
 	else if (a)
 	{
 		ft_follow_operations(&a, &b);
-		// ft_print_int_list(a);
 		if (ft_is_sorted(a))
 			ft_putstr_fd("OK\n", 1);
 		else

@@ -1,6 +1,6 @@
 SRCS = push_swap.c push_swap_a_ope.c push_swap_b_ope.c push_swap_check.c push_swap_costs.c push_swap_last.c push_swap_parsing.c push_swap_ring.c push_swap_rotates.c push_swap_targets.c push_swap_tasks.c
 
-BONUS = push_swap_bonus.c push_swap_ope_bonus.c push_swap_check_bonus.c push_swap_parsing_bonus.c push_swap_ring_bonus.c push_swap_tasks_bonus.c
+BONUS = push_swap_sprab_bonus.c push_swap_bonus.c push_swap_ope_bonus.c push_swap_check_bonus.c push_swap_parsing_bonus.c push_swap_ring_bonus.c push_swap_tasks_bonus.c
 
 LIBFT = libft/libft.a
 

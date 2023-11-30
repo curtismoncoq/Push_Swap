@@ -6,14 +6,16 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:10:04 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 18:06:22 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 20:02:13 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//? set the target of A "node" by checking all possible targets in B
-void	ft_one_target_a(t_ring *node, t_ring *b)
+/*
+**set the target of A "node" by checking all possible targets in B
+*/
+static void	ft_one_target_a(t_ring *node, t_ring *b)
 {
 	t_ring	*target;
 	t_ring	*move;
@@ -37,7 +39,9 @@ void	ft_one_target_a(t_ring *node, t_ring *b)
 	node->target = target;
 }
 
-//? uses the above function to set all targets in ring A
+/*
+**uses the above function to set all targets in ring A
+*/
 void	ft_all_target_a(t_ring *a, t_ring *b)
 {
 	t_ring	*move;
@@ -51,8 +55,10 @@ void	ft_all_target_a(t_ring *a, t_ring *b)
 	}
 }
 
-//? set the target of A "node" ay checking all possible targets in B
-void	ft_one_target_b(t_ring *node, t_ring *a)
+/*
+**set the target of A "node" ay checking all possible targets in B
+*/
+static void	ft_one_target_b(t_ring *node, t_ring *a)
 {
 	t_ring	*target;
 	t_ring	*move;
@@ -76,7 +82,9 @@ void	ft_one_target_b(t_ring *node, t_ring *a)
 	node->target = target;
 }
 
-//? uses the above function to set all targets in ring B
+/*
+**uses the above function to set all targets in ring B
+*/
 void	ft_all_target_b(t_ring *a, t_ring *b)
 {
 	t_ring	*move;

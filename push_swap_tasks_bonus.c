@@ -6,13 +6,13 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 14:40:15 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 15:00:42 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:50:52 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_bonus.h"
 
-void	ft_order_three_suport(t_ring **a, int min, int max)
+static void	ft_order_three_suport(t_ring **a, int min, int max)
 {
 	int	one;
 	int	two;
@@ -68,7 +68,9 @@ void	ft_rrr(t_ring **a, t_ring **b)
 	ft_putstr_fd("rrr\n", 1);
 }
 
-//? Remove the top node of a ring
+/*
+**Remove the top node of a ring
+*/
 void	ft_remove_top(t_ring **top)
 {
 	if (!(*top))

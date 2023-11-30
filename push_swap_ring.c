@@ -6,13 +6,13 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:01:57 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 19:18:28 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:52:19 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_ring	*ft_create_element(int data)
+static t_ring	*ft_create_element(int data)
 {
 	t_ring	*n;
 

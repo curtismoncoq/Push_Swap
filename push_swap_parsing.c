@@ -6,7 +6,7 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:03:30 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 19:14:06 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:56:45 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	ft_parse_args(int ac, char **av, t_ring **top)
 		stack = av + 1;
 	if (!ft_valid_stack(ac, stack))
 	{
-		write(2, "Error: Invalid arguments.", 26);
+		ft_putstr_fd("Error\n", 2);
 		if (ac == 2)
 			ft_free_split(stack);
 		return ;

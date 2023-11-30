@@ -6,13 +6,13 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:37:16 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 15:40:56 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:56:10 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_choose_and_push_a(t_ring **a, t_ring **b)
+static void	ft_choose_and_push_a(t_ring **a, t_ring **b)
 {
 	if (!b || !a)
 		return ;
@@ -26,7 +26,7 @@ void	ft_choose_and_push_a(t_ring **a, t_ring **b)
 	ft_push_b(a, b);
 }
 
-void	ft_choose_and_push_b(t_ring **a, t_ring **b)
+static void	ft_choose_and_push_b(t_ring **a, t_ring **b)
 {
 	if (!b || !a)
 		return ;
@@ -40,7 +40,7 @@ void	ft_choose_and_push_b(t_ring **a, t_ring **b)
 	ft_push_a(a, b);
 }
 
-void	ft_order(t_ring **a, t_ring **b)
+static void	ft_order(t_ring **a, t_ring **b)
 {
 	if (ft_len_ring(*a) > 3)
 		ft_push_b(a, b);
@@ -67,7 +67,7 @@ int	main(int ac, char **av)
 	if (a && ft_check_double(&a))
 	{
 		ft_clear_ring(&a);
-		ft_putstr_fd("Error: Duplicate numbers in arguments.\n", 2);
+		ft_putstr_fd("Error\n", 2);
 	}
 	if (!ft_is_sorted(a))
 	{

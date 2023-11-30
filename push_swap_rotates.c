@@ -6,13 +6,13 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:13:41 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/29 18:06:33 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/11/30 19:48:37 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_double_rotate(t_ring **a, t_ring **b, t_ring *cheap)
+static void	ft_double_rotate(t_ring **a, t_ring **b, t_ring *cheap)
 {
 	while (cheap->route.a < 0 && cheap->route.target < 0)
 	{
@@ -28,7 +28,7 @@ void	ft_double_rotate(t_ring **a, t_ring **b, t_ring *cheap)
 	}
 }
 
-void	ft_single_rotate_a(t_ring **a, t_ring **b, t_ring *cheap)
+static void	ft_single_rotate_a(t_ring **a, t_ring **b, t_ring *cheap)
 {
 	while (cheap->route.a < 0)
 	{
@@ -52,7 +52,7 @@ void	ft_single_rotate_a(t_ring **a, t_ring **b, t_ring *cheap)
 	}
 }
 
-void	ft_single_rotate_b(t_ring **a, t_ring **b, t_ring *cheap)
+static void	ft_single_rotate_b(t_ring **a, t_ring **b, t_ring *cheap)
 {
 	while (cheap->route.a < 0)
 	{
