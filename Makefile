@@ -6,22 +6,25 @@ LIBFT = libft/libft.a
 
 LIBFTDIR = libft
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(addprefix $(OBJDIR),$(SRCS:.c=.o))
 
-OBONUS= $(BONUS:.c=.o)
+OBONUS = $(addprefix $(OBJDIR),$(BONUS:.c=.o))
+
+OBJDIR = objs/
 
 NAME = push_swap
 
 CHECK = checker
 
-ARGS = 3 1 2 4 5
+ARGS = 641 7643 -4995 -9035 4803 -119 298 2809 6817 9465 -913 -7541 -5787 -1106 1976 -196 7078 1806 -7852 1100 6814 5185 2330 -5920 5671 6719 -2364 -740 7019 -532 2611 662 -606 312 4008 -14 -4080 3033 -4558 -3529 6957 -4294 7991 -9914 769 -169 -4296 1731 -7063 -6517 -2213 -4906 -6759 8145 386 7231 8225 -9625 1018 1013 -1357 -4338 9556 -8020 8477 -2860 9555 -8616 5895 -6938 -1243 7796 8167 3332 6331 -6176 -2661 -3886 -5585 -2645 -4608 -4654 3755 -1066 7045 -5270 1342 5425 -4496 -8955 -9818 2946 3444 -819 7716 -5003 -9627 -5805 5190 -7181
 
 CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-.c.o:
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+$(OBJDIR)%.o : %.c
+	mkdir -p $(OBJDIR)
+	${CC} ${CFLAGS} -c $< -o $@
 
 all: $(NAME) $(CHECK)
 
@@ -41,6 +44,7 @@ $(CHECK): $(OBONUS) $(LIBFT)
 clean:
 	rm -f $(OBJS)
 	rm -f $(OBONUS)
+	rmdir $(OBJDIR)
 	make clean -C $(LIBFTDIR)
 
 fclean: clean
@@ -51,16 +55,12 @@ fclean: clean
 re: fclean all
 
 m: $(NAME)
-	rm -f $(OBJS)
-	make clean -C $(LIBFTDIR)
 	./$(NAME) $(ARGS)
 
 b: $(CHECK)
-	rm -f $(OBONUS)
-	make clean -C $(LIBFTDIR)
 	./$(CHECK) $(ARGS)
 
-x:
+x: all
 	./$(NAME) $(ARGS) | ./$(CHECK) $(ARGS)
 
 .PHONY: all mandatory bonus clean fclean re m b x

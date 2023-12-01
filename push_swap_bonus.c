@@ -6,7 +6,7 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 15:37:16 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 22:55:06 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/12/01 09:56:35 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,10 +106,9 @@ int	main(int ac, char **av)
 		ft_clear_ring(&a);
 		ft_putstr_fd("Error\n", 2);
 	}
-	else if (a)
+	else if (a && ft_follow_operations(&a, &b))
 	{
-		ft_follow_operations(&a, &b);
-		if (ft_is_sorted(a))
+		if (ft_is_sorted(a) && !b)
 			ft_putstr_fd("OK\n", 1);
 		else
 			ft_putstr_fd("KO\n", 1);
