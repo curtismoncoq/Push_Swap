@@ -6,14 +6,14 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:14:01 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 00:11:07 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/12/01 12:04:54 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1024
+#  define BUFFER_SIZE 1
 # endif
 # include <stdio.h>
 # include <stdlib.h>
