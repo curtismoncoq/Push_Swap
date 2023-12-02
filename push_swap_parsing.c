@@ -6,7 +6,7 @@
 /*   By: cumoncoq <cumoncoq@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 13:03:30 by cumoncoq          #+#    #+#             */
-/*   Updated: 2023/11/30 19:56:45 by cumoncoq         ###   ########.fr       */
+/*   Updated: 2023/12/02 15:17:34 by cumoncoq         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,20 @@ static long	ft_long_atoi(const char *str)
 static int	ft_valid_str(char *str)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
+	while ((str[i] == ' ') || (str[i] >= 9 && str[i] <= 13))
+		i++;
 	if (str[i] == '-' || str[i] == '+')
 		i++;
-	while (str[i])
-	{
-		if (str[i] < '0' || str[i] > '9')
-			return (0);
+	j = i;
+	while (str[i] >= '0' && str[i] <= '9')
 		i++;
-	}
-	if (!i)
+	while (str[i] == ' ')
+		i++;
+	if (str[i] || i == j)
 		return (0);
 	return (1);
 }
@@ -115,10 +118,10 @@ void	ft_parse_args(int ac, char **av, t_ring **top)
 		stack = ft_split(av[1], ' ');
 	else if (ac > 2)
 		stack = av + 1;
-	if (!ft_valid_stack(ac, stack))
+	if (!stack[0] || !ft_valid_stack(ac, stack))
 	{
 		ft_putstr_fd("Error\n", 2);
-		if (ac == 2)
+		if (ac == 2 && stack)
 			ft_free_split(stack);
 		return ;
 	}
